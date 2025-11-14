@@ -4,7 +4,9 @@ self.addEventListener("install", event => {
       return cache.addAll([
         "/",          // your index.html
         "/manifest.json",
-        "/icon.png"   // your app icon
+        "/icon.png",   // your app icon
+        "./src/main.js",
+        "./src/style.css"
       ]);
     })
   );
