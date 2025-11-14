@@ -30,6 +30,10 @@
       "icons": [
         {
           "src": "/logo.png",
+          "sizes": "64x64"
+        },
+        {
+          "src": "/logo.png",
           "sizes": "96x96"
         }
       ]
@@ -39,10 +43,10 @@
   "screenshots": [
     {
       "src": "/logo.png",
-      "sizes": "512x512",
+      "sizes": "1920x1080",
       "type": "image/png",
       "form_factor": "wide",
-      "label": "App main screen"
+      "label": "App landscape screen"
     }
   ],
 
