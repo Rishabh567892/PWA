@@ -1,66 +1,23 @@
-// Name of the cache
-const CACHE_NAME = "pwa-cache-v1";
+// service-worker.js (source)
 
-// Files that always exist
-const APP_SHELL = [
-  "/",
-  "/manifest.json",
-  "/web-app-manifest-96x96.png",
-  "/web-app-manifest-192x192.png",
-  "/web-app-manifest-512x512.png"
-];
-
-// Install event → cache base files
-self.addEventListener("install", (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(APP_SHELL);
-    })
-  );
+self.addEventListener("install", event => {
   self.skipWaiting();
 });
 
-// Activate → cleanup old caches
-self.addEventListener("activate", (event) => {
-  event.waitUntil(
-    caches.keys().then((keys) =>
-      Promise.all(
-        keys.map((key) => {
-          if (key !== CACHE_NAME) return caches.delete(key);
-        })
-      )
-    )
-  );
-  self.clients.claim();
+self.addEventListener("activate", event => {
+  clients.claim();
 });
 
-// Fetch handler → offline-first strategy
-self.addEventListener("fetch", (event) => {
-  const request = event.request;
+// Workbox injects your file list here
+// __WB_MANIFEST is replaced at build time
+import { precacheAndRoute } from 'workbox-precaching';
 
-  // Only handle GET requests (avoid breaking POST/PUT/etc.)
-  if (request.method !== "GET") return;
+precacheAndRoute(self.__WB_MANIFEST);
 
+self.addEventListener("fetch", event => {
   event.respondWith(
-    caches.match(request).then((cached) => {
-      if (cached) return cached;
-
-      return fetch(request)
-        .then((response) => {
-          // Cache Vite build assets automatically
-          if (request.url.includes("/assets/")) {
-            caches.open(CACHE_NAME).then((cache) => {
-              cache.put(request, response.clone());
-            });
-          }
-          return response;
-        })
-        .catch(() => {
-          // If offline and cannot fetch → return fallback
-          if (request.destination === "document") {
-            return caches.match("/");
-          }
-        });
+    caches.match(event.request).then(response => {
+      return response || fetch(event.request);
     })
   );
 });
