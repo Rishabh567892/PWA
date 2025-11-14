@@ -39,7 +39,7 @@
   "screenshots": [
     {
       "src": "/screenshot.png",
-      "sizes": "1290x720",
+      "sizes": "1280x720",
       "type": "image/png",
       "form_factor": "wide",
       "label": "App landscape screen"
