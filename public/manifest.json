@@ -1,18 +1,51 @@
 {
-  "name": "pwa",
-  "short_name": "App",
-  "start_url": ".",
+  "name": "My PWA App",
+  "short_name": "MyApp",
+  "description": "A fast, installable Progressive Web App.",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+
   "icons": [
     {
       "src": "/logo.png",
-      "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "sizes": "192x192"
     },
     {
       "src": "/logo.png",
-      "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "sizes": "512x512"
     }
-  ]
+  ],
+
+  "shortcuts": [
+    {
+      "name": "Open Home",
+      "short_name": "Home",
+      "url": "/",
+      "icons": [
+        {
+          "src": "/logo.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+
+  "screenshots": [
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "App main screen"
+    }
+  ],
+
+  "categories": ["productivity", "utilities"],
+  "id": "my-pwa-app"
 }
