@@ -1,3 +1,6 @@
+
+// main.js
+
 import './style.css'
 
 if ('serviceWorker' in navigator) {
