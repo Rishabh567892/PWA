@@ -1,25 +1,20 @@
-// service-worker.js (source)
+// public/service-worker.js
 
-// 1. Import Workbox *at the top*
-import { precacheAndRoute } from "workbox-precaching";
+// DO NOT import workbox here.
+// Workbox injectManifest will rewrite this file and insert the real import
+// plus __WB_MANIFEST at build time.
 
-// 2. Precache all Vite-generated build files
-// Workbox replaces __WB_MANIFEST automatically during build
-precacheAndRoute(self.__WB_MANIFEST);
+// Placeholder for Workbox to inject precache manifest
+self.__WB_MANIFEST;
 
-// 3. Install event: activate immediately
-self.addEventListener("install", event => {
-  self.skipWaiting();
-});
+self.addEventListener("install", () => self.skipWaiting());
 
-// 4. Activate event: take control of all pages
-self.addEventListener("activate", event => {
+self.addEventListener("activate", (event) => {
   event.waitUntil(clients.claim());
 });
 
-// 5. Offline fallback for SPA navigation
-self.addEventListener("fetch", event => {
-  // For navigation requests only
+// Offline navigation fallback
+self.addEventListener("fetch", (event) => {
   if (event.request.mode === "navigate") {
     event.respondWith(
       fetch(event.request).catch(() => caches.match("/index.html"))
